@@ -1,29 +1,34 @@
-# Liste pour stocker les tâches
-tasks = []
+import json
 
-# Boucle principale
-while True:
-    print("\nMenu:")
-    print("1. Ajouter une tâche")
-    print("2. Afficher les tâches")
-    print("3. Marquer une tâche comme terminée")
-    print("4. Supprimer une tâche")
-    print("5. Quitter")
+class Task:
+    def __init__(self, filename):
+        self.filename = filename
+        self.tasks = []
+    
 
-    choice = input("Choisissez une option : ")
+# Exemple d'utilisation de la classe Task
+if __name__ == "__main__":
+    task_manager = Task('tasks.json')
+    task_manager.load_tasks_from_file()
 
-    if choice == '1':
-        task_description = input("Entrez la description de la tâche : ")
-        print("fonction add")
-    elif choice == '2':
-        print("fonction list task")
-    elif choice == '3':
-        print("fonction task done")
-    elif choice == '4':
-        print("fonction task supprimer")
-    elif choice == '5':
-        break
-    else:
-        print("Option invalide. Veuillez réessayer.")
+    while True:
+        print("\nMenu:")
+        print("1. Ajouter une tâche")
+        print("2. Afficher les tâches")
+        print("3. Quitter")
 
-print("Application de gestion de tâches terminée.")
+        choice = input("Choisissez une option : ")
+
+        if choice == '1':
+            description = input("Entrez la description de la tâche : ")
+            due_date = input("Entrez la date limite (YYYY-MM-DD) : ")
+            is_completed = False  # Par défaut, la tâche n'est pas terminée
+            task_manager.add_task(description, due_date, is_completed)
+        elif choice == '2':
+            task_manager.list_tasks()
+        elif choice == '3':
+            break
+        else:
+            print("Option invalide. Veuillez réessayer.")
+
+    print("Application de gestion de tâches terminée.")
